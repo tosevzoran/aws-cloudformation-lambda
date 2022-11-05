@@ -7,6 +7,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write # This is required for requesting the JWT
 
     steps:
       - name: Checkout the repository
@@ -14,6 +16,7 @@ jobs:
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
+
         with:
           # AWS Region
           aws-region: ${{ secrets.AWS_REGION }}
