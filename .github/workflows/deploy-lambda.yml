@@ -37,8 +37,4 @@ jobs:
           aws cloudformation deploy \
           --template-file ./template.yaml \
           --stack-name ${StackName} \
-          --parameter-overrides \ 
-              AccountId=${AccountId} \
-              Region=${Region} \
-              UserName=${UserName} \
-              EcrRepo=${EcrRepo}
+          --parameter-overrides AccountId=${AccountId} Region=${Region} UserName=${UserName} EcrRepo=${EcrRepo}
