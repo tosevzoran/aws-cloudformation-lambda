@@ -1,14 +1,28 @@
 AWSTemplateFormatVersion: "2010-09-09"
 
 Parameters:
-  ImageUri:
-    Description: ECR image Uri
+  AccountId:
     Type: String
+  Region:
+    Type: String
+  UserName:
+    Type: String
+  EnvName:
+    Type: String
+    Default: dev
+  EcrRepo:
+    Type: String
+    Description: ECR image Uri
 
 Resources:
   DemoLambdaFn:
     Type: AWS::Lambda::Function
-    PackageType: Image
-    Name: "demo-lambda"
-    Code:
-      ImageUri: !Ref ImageUri
+    Properties:
+      Role:
+        Fn::Sub: arn:aws:iam::${AccountId}:role/${UserName}
+      PackageType: Image
+      FunctionName:
+        Fn::Sub: lambda-function-${EnvName}
+      Code:
+        ImageUri:
+          Fn::Sub: ${AccountId}.dkr.ecr.${Region}.amazonaws.com/${EcrRepo}

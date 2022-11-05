@@ -1,7 +1,7 @@
 name: Deploy the lambda
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch:
 
 jobs:
@@ -9,4 +9,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          # AWS Region
+          aws-region: ${{ secrets.AWS_REGION }}
+          # Use the provided credentials to assume an IAM role and configure the Actions environment with the assumed role credentials rather than with the provided credentials
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/lambda-deployer
+
+      - name: Deploy to Lambda
+        env:
+          StackName: lambda-demo
+          AccountId: ${{ secrets.AWS_ACCOUNT_ID }}
+          Region: ${{ secrets.AWS_REGION }}
+          UserName: lambda-deployer
+          # EnvName:
+          #   Type: String
+          #   Default: dev
+          EcrRepo: aws-lambda-hello-go:main-b7e3a7e
+        run: |
+          aws cloudformation deploy \
+          --template-file ./template.yml \
+          --stack-name ${StackName} \
+          --parameter-overrides \ 
+              AccountId=${AccountId} \
+              Region=${Region} \
+              UserName=${UserName} \
+              EcrRepo=${EcrRepo}
