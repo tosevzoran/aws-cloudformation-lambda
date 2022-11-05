@@ -1,0 +1,14 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Parameters:
+  ImageUri:
+    Description: ECR image Uri
+    Type: String
+
+Resources:
+  DemoLambdaFn:
+    Type: AWS::Lambda::Function
+    PackageType: Image
+    Name: "demo-lambda"
+    Code:
+      ImageUri: !Ref ImageUri
