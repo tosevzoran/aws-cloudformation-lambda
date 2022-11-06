@@ -32,9 +32,9 @@ jobs:
           # EnvName:
           #   Type: String
           #   Default: dev
-          EcrRepo: aws-lambda-hello-go:latest
+          ImageUri: aws-lambda-hello-go:latest
         run: |
           aws cloudformation deploy \
           --template-file ./template.yaml \
           --stack-name ${StackName} \
-          --parameter-overrides AccountId=${AccountId} Region=${Region} RoleName=${RoleName} EcrRepo=${EcrRepo}
+          --parameter-overrides AccountId=${AccountId} Region=${Region} RoleName=${RoleName} ImageUri=${ImageUri}

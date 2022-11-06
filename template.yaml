@@ -10,7 +10,7 @@ Parameters:
   EnvName:
     Type: String
     Default: dev
-  EcrRepo:
+  ImageUri:
     Type: String
     Description: ECR image Uri
 
@@ -25,4 +25,4 @@ Resources:
         Fn::Sub: lambda-function-${EnvName}
       Code:
         ImageUri:
-          Fn::Sub: ${AccountId}.dkr.ecr.${Region}.amazonaws.com/${EcrRepo}
+          Fn::Sub: ${AccountId}.dkr.ecr.${Region}.amazonaws.com/${ImageUri}
