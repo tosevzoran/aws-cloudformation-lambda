@@ -32,7 +32,7 @@ jobs:
           # EnvName:
           #   Type: String
           #   Default: dev
-          EcrRepo: aws-lambda-hello-go:main-b7e3a7e
+          EcrRepo: aws-lambda-hello-go:latest
         run: |
           aws cloudformation deploy \
           --template-file ./template.yaml \
