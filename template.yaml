@@ -5,7 +5,7 @@ Parameters:
     Type: String
   Region:
     Type: String
-  UserName:
+  RoleName:
     Type: String
   EnvName:
     Type: String
@@ -19,7 +19,7 @@ Resources:
     Type: AWS::Lambda::Function
     Properties:
       Role:
-        Fn::Sub: arn:aws:iam::${AccountId}:role/${UserName}
+        Fn::Sub: arn:aws:iam::${AccountId}:role/${RoleName}
       PackageType: Image
       FunctionName:
         Fn::Sub: lambda-function-${EnvName}

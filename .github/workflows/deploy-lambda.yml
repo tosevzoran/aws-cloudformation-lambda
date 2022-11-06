@@ -28,7 +28,7 @@ jobs:
           StackName: lambda-demo
           AccountId: ${{ secrets.AWS_ACCOUNT_ID }}
           Region: ${{ secrets.AWS_REGION }}
-          UserName: lambda-deployer
+          RoleName: lambda-deployer
           # EnvName:
           #   Type: String
           #   Default: dev
@@ -37,4 +37,4 @@ jobs:
           aws cloudformation deploy \
           --template-file ./template.yaml \
           --stack-name ${StackName} \
-          --parameter-overrides AccountId=${AccountId} Region=${Region} UserName=${UserName} EcrRepo=${EcrRepo}
+          --parameter-overrides AccountId=${AccountId} Region=${Region} RoleName=${RoleName} EcrRepo=${EcrRepo}
